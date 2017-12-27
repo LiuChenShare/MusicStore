@@ -1,0 +1,19 @@
+﻿@using MusicStore.Models
+@model List<Genre>
+
+@{
+    ViewBag.Title = "商店";
+    Layout = "~/Views/Shared/_MusicStore.cshtml";
+}
+<br/>
+<br/>
+<h2>浏览类型</h2> 
+
+<p>查询到 @Model.Count() 个类型:</p>
+
+<ul>
+    @foreach (var genre in Model)
+    {
+        <li>@Html.ActionLink(genre.Name, "Browse", new {genre = genre.Name})</li>
+    }
+</ul>

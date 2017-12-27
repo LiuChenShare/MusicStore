@@ -1,0 +1,36 @@
+﻿@model MusicStore.Models.Genre
+
+@{
+    ViewBag.Title = "Browse";
+    Layout = "~/Views/Shared/_MusicStore.cshtml";
+}
+
+<h2>浏览类型: @Model.Name</h2>
+
+<ul>
+    @foreach (var album in Model.Albums)
+    {
+        <li>
+            @Html.ActionLink(album.Title, "Details", new {id = album.AlbumId})
+        </li>
+    }
+</ul>
+
+<div>
+    <h4>Genre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("返回列表", "Index")
+</p>
