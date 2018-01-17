@@ -20,5 +20,10 @@ namespace MusicStore.Models
         /// 艺术家
         /// </summary>
         public DbSet<Artist> Artists { get; set; }
+        /// <summary>
+        /// 购物车
+        /// </summary>
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

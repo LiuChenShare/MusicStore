@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MusicStore.Models;
 
+using System.Data.Entity;
+
 namespace MusicStore.Controllers
 {
     public class StoreManagerController : Controller
@@ -57,25 +59,40 @@ namespace MusicStore.Controllers
         }
 
         // POST: StoreManager/Edit/5
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult Edit(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
+        //        Album album = storeDB.Albums.Find(id);
+        //        if (this.TryUpdateModel<Album>(album))
+        //        {
+        //            storeDB.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //        return View();
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        // POST: /StoreManager/Edit/5
         [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Album album)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-                Album album = storeDB.Albums.Find(id);
-                if (this.TryUpdateModel<Album>(album))
-                {
-                    storeDB.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return View();
+                storeDB.Entry(album).State = EntityState.Modified;
+                storeDB.SaveChanges();
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.GenreId = new SelectList(storeDB.Genres, "GenreId", "Name", album.GenreId);
+            ViewBag.ArtistId = new SelectList(storeDB.Artists, "ArtistId", "Name", album.ArtistId);
+            return View(album);
         }
 
         // GET: StoreManager/Delete/5
@@ -94,7 +111,7 @@ namespace MusicStore.Controllers
                 // TODO: Add delete logic here
                 Album album = storeDB.Albums.Find(id);
                 storeDB.Albums.Remove(album);
-                //storeDB.SaveChanges();
+                storeDB.SaveChanges();
 
                 return RedirectToAction("Index");
             }

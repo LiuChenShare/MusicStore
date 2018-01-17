@@ -15,7 +15,8 @@ namespace MusicStore
         /// </summary>
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(new MusicStore.Models.SampleData());
+            //初始一个数据库数据
+            //System.Data.Entity.Database.SetInitializer(new MusicStore.Models.SampleData());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
